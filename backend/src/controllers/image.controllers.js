@@ -1,0 +1,60 @@
+// Générer une image avec pollinations.ai
+export async function generateImage(req, res) {
+  try {
+    const { prompt } = req.body;
+    const imgUrl = await fetch(
+      `https://enter.pollinations.ai/api/generate/image/${encodeURI(
+        prompt
+      )}?model=flux&nologo=true`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${process.env.POLLINATION_API_KEY}` },
+      }
+    );
+    const buffer = Buffer.from(await imgUrl.arrayBuffer());
+    res.set("Content-Type", "image/png");
+    res.send(buffer);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+// poster l'image générer sur postimg.cc
+export async function postOnPostimg(req, res) {
+  try {
+    const { imgBase64 } = req.body;
+    const buffer = Buffer.from(imgBase64, "base64");
+    const file = new File([buffer], "1200x680.png", { type: "image/png" });
+    const form = new FormData();
+    form.append("optsize", "0");
+    form.append("expire", "0");
+    form.append("numfiles", "1");
+    form.append("upload_session", "1764620882670.7666386589446694");
+    form.append("file", file);
+    const response = await fetch("https://postimg.cc/json?q=a", {
+      method: "POST",
+      body: form,
+    });
+    const data = await response.json();
+    res.send({ url: await getOgUrl(data.url) });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+// Permet de récupérer uniquement l'url de l'image
+async function getOgUrl(pageUrl) {
+  const response = await fetch(pageUrl, {
+    method: "GET",
+  });
+  const html = await response.text();
+  const match = html.match(
+    /<meta\s+property=["']og:image["']\s+content=["']([^"']+)["']/i
+  );
+  if (match) {
+    return match[1];
+  } else {
+    throw new Error("Image URL not found in the page");
+  }
+}

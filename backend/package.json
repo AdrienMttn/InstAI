@@ -1,0 +1,18 @@
+{
+  "name": "instai_backend",
+  "version": "1.0.0",
+  "description": "Backend for InstAI app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "author": "adrien_mttn",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.0",
+    "nodemon": "^3.1.11"
+  }
+}
