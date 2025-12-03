@@ -15,6 +15,7 @@ import {
   followUser,
   getSessionUser,
 } from "./controllers/user.controller.js";
+import { feed } from "./controllers/publication.controller.js";
 
 const app = express();
 app.use(
@@ -44,6 +45,9 @@ app.post("/comment-publication", commentPubli);
 app.post("/follow-unfollow-user", followUser);
 app.post("/user", getUser);
 app.post("/session-user", getSessionUser);
+
+// Endpoint for publication controller
+app.post("/feed", feed);
 
 app.listen(3000, () => {
   console.log(`Server is running on http://localhost:3000`);
