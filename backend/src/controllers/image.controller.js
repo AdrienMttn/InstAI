@@ -1,6 +1,15 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 // Générer une image avec pollinations.ai
 export async function generateImage(req, res) {
   try {
+    if (req.session.user === undefined) {
+      const error = new Error("User is not connected");
+      error.status = 401;
+      throw error;
+    }
     const { prompt } = req.body;
     const imgUrl = await fetch(
       `https://enter.pollinations.ai/api/generate/image/${encodeURI(
@@ -15,16 +24,13 @@ export async function generateImage(req, res) {
     res.set("Content-Type", "image/png");
     res.send(buffer);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(error.status || 500).json({ error: error.message });
   }
 }
 
 // poster l'image générer sur postimg.cc
-export async function postOnPostimg(req, res) {
+export async function postOnPostimg(file) {
   try {
-    const { imgBase64 } = req.body;
-    const buffer = Buffer.from(imgBase64, "base64");
-    const file = new File([buffer], "1200x680.png", { type: "image/png" });
     const form = new FormData();
     form.append("optsize", "0");
     form.append("expire", "0");
@@ -36,7 +42,7 @@ export async function postOnPostimg(req, res) {
       body: form,
     });
     const data = await response.json();
-    res.send({ url: await getOgUrl(data.url) });
+    return await getOgUrl(data.url);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });

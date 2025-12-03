@@ -1,6 +1,5 @@
 import express from "express";
 import session from "express-session";
-import dotenv from "dotenv";
 import {
   generateImage,
   postOnPostimg,
@@ -10,9 +9,12 @@ import {
   getUser,
   login,
   logout,
+  postPubli,
+  likePubli,
+  commentPubli,
+  followUser,
+  getSessionUser,
 } from "./controllers/user.controller.js";
-
-dotenv.config();
 
 const app = express();
 app.use(
@@ -31,13 +33,17 @@ app.get("/", async (req, res) => {
 
 // Endpoint for image controller
 app.post("/generate", generateImage);
-app.post("/post", postOnPostimg);
 
 // Endpoint for user controller
 app.post("/create-account", createAccount);
 app.post("/login", login);
 app.post("/logout", logout);
-app.get("/user", getUser);
+app.post("/post-publication", postPubli);
+app.post("/like-dislike-publication", likePubli);
+app.post("/comment-publication", commentPubli);
+app.post("/follow-unfollow-user", followUser);
+app.post("/user", getUser);
+app.post("/session-user", getSessionUser);
 
 app.listen(3000, () => {
   console.log(`Server is running on http://localhost:3000`);
