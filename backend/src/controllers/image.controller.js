@@ -13,7 +13,7 @@ export async function generateImage(req, res) {
     const imgUrl = await fetch(
       `https://enter.pollinations.ai/api/generate/image/${encodeURI(
         prompt
-      )}?model=flux&nologo=true`,
+      )}?model=flux&nologo=true&width=1080&height=1080&quality=hd`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${process.env.POLLINATION_API_KEY}` },
