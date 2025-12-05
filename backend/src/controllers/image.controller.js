@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-
 dotenv.config();
 
 // Générer une image avec pollinations.ai
@@ -21,6 +20,7 @@ export async function generateImage(req, res) {
       }
     );
     const buffer = Buffer.from(await imgUrl.arrayBuffer());
+    req.session.generateImage = buffer.toString("base64");
     res.set("Content-Type", "image/png");
     res.send(buffer);
   } catch (error) {

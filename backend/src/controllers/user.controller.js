@@ -103,8 +103,7 @@ export async function postPubli(req, res) {
       error.status = 401;
       throw error;
     }
-    const { imgBase64 } = req.body;
-    const buffer = Buffer.from(imgBase64, "base64");
+    const buffer = Buffer.from(req.session.generateImage, "base64");
     const file = new File([buffer], "1200x680.png", { type: "image/png" });
     const imgUrl = await postOnPostimg(file);
     const [result] = await connection.execute("call AddPost(?, ?)", [
