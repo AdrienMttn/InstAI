@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
+import { defineProps } from "vue";
+import { User } from "../models/user";
+
+const props = defineProps<{ user: User | null }>();
 </script>
 
 <template>
   <div class="dock border-t border-base-300">
-    <RouterLink to="/">
+    <RouterLink :to="{ name: 'accueil' }">
       <svg
         aria-label="Accueil"
         class="x1lliihq x1n2onr6 x5n08af"
@@ -41,7 +45,16 @@ import { RouterLink } from "vue-router";
         />
       </svg>
     </RouterLink>
-    <RouterLink to="/" class="avatar">
+    <RouterLink
+      v-if="user?.getUsername()"
+      :to="{ name: 'profile', params: { username: user?.getUsername() } }"
+      class="avatar"
+    >
+      <div class="rounded-full w-[25%]">
+        <img :src="props.user?.getImg()" />
+      </div>
+    </RouterLink>
+    <RouterLink v-if="!user?.getUsername()" to="/login" class="avatar">
       <div class="rounded-full w-[25%]">
         <img src="https://avatar.vercel.sh/adrien2?size=500" />
       </div>
