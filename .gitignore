@@ -5,7 +5,8 @@
 
 ### Universal ###
 # Common files that should be ignored in all projects
-
+.vscode/*
+!.vscode/extensions.json
 # Logs
 *.log
 # Temporary files
@@ -27,3 +28,6 @@
 node_modules/
 logs/
 *.log
+
+### BDD ###
+bdd/

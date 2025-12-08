@@ -12,13 +12,13 @@ export async function createAccount(req, res) {
   try {
     const { username, email, password } = req.body;
     if (!validPassword(password)) {
-      return res.status(400).json({
+      return res.status(200).json({
         error:
           "Password must be 8-64 characters long and include at least one lowercase letter, one uppercase letter, one digit, and one special character.",
       });
     }
     if (!validEmail(email)) {
-      return res.status(400).json({
+      return res.status(200).json({
         error: "Invalid email format.",
       });
     }
@@ -28,6 +28,11 @@ export async function createAccount(req, res) {
       password,
       `https://avatar.vercel.sh/${username}?size=500`,
     ]);
+    if (result[0][0].error) {
+      return res.status(200).json({
+        error: result[0][0].message,
+      });
+    }
     const user = new User(
       result[0][0].id,
       username,
@@ -48,13 +53,17 @@ export async function login(req, res) {
       email,
       password,
     ]);
-    req.session.user = new User(
-      result[0][0].id,
-      result[0][0].username,
-      result[0][0].email,
-      result[0][0].profile_picture
-    );
-    res.status(200).json({ success: "Login successful" });
+    if (result[0][0].error) {
+      res.status(200).json({ error: result[0][0].message });
+    } else {
+      req.session.user = new User(
+        result[0][0].id,
+        result[0][0].username,
+        result[0][0].email,
+        result[0][0].profile_picture
+      );
+      res.status(200).json({ success: "Login successful" });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
