@@ -1,19 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { Publication } from "../../models/publications";
+const props = defineProps<{ post: Publication }>();
+</script>
 
 <template>
-  <div class="card">
+  <div :class="'card ' + post.getId()">
     <div class="w-95 flex flex-col gap-2">
       <div
         class="avatar flex justify-start items-center gap-3 cursor-pointer p-2"
       >
         <div class="w-8 rounded-full">
-          <img
-            src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
-          />
+          <img :src="props.post.getProfile_picture()" />
         </div>
-        <p class="font-bold text-sm">adrien</p>
+        <p class="font-bold text-sm">{{ props.post.getUsername() }}</p>
       </div>
-      <img class="rounded" src="https://i.postimg.cc/LXkzgdq7/1200x680.jpg" />
+      <img class="rounded" :src="props.post.getImage_url()" />
       <div class="card-actions justify-start gap-5 cursor-default p-2">
         <div class="flex justify-center items-center gap-2">
           <button class="cursor-pointer">
@@ -32,7 +33,7 @@
               ></path>
             </svg>
           </button>
-          <p>5,1k</p>
+          <p>{{ props.post.getNbLike() }}</p>
         </div>
         <div class="flex justify-center items-center gap-2">
           <button class="cursor-pointer">
@@ -55,7 +56,7 @@
               ></path>
             </svg>
           </button>
-          <p>10</p>
+          <p>{{ props.post.getNbComment() }}</p>
         </div>
       </div>
     </div>

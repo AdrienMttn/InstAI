@@ -1,30 +1,32 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterLink } from "vue-router";
+</script>
 
 <template>
-  <div class="dock">
-    <button>
+  <div class="dock border-t border-base-300">
+    <RouterLink to="/">
       <svg
-        width="24"
+        aria-label="Accueil"
+        class="x1lliihq x1n2onr6 x5n08af"
+        fill="currentColor"
         height="24"
+        role="img"
         viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+        width="24"
       >
+        <title>Accueil</title>
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M6 22.8787C4.34315 22.8787 3 21.5355 3 19.8787V9.87866C3 9.84477 3.00169 9.81126 3.00498 9.77823H3C3 9.20227 3.2288 8.64989 3.63607 8.24262L9.87868 2.00002C11.0502 0.828445 12.9497 0.828445 14.1213 2.00002L20.3639 8.24264C20.7712 8.6499 21 9.20227 21 9.77823H20.995C20.9983 9.81126 21 9.84477 21 9.87866V19.8787C21 21.5355 19.6569 22.8787 18 22.8787H6ZM12.7071 3.41423L19 9.70713V19.8787C19 20.4309 18.5523 20.8787 18 20.8787H15V15.8787C15 14.2218 13.6569 12.8787 12 12.8787C10.3431 12.8787 9 14.2218 9 15.8787V20.8787H6C5.44772 20.8787 5 20.4309 5 19.8787V9.7072L11.2929 3.41423C11.6834 3.02371 12.3166 3.02371 12.7071 3.41423Z"
-          fill="currentColor"
-        />
+          d="m21.762 8.786-7-6.68C13.266.68 10.734.68 9.238 2.106l-7 6.681A4.017 4.017 0 0 0 1 11.68V20c0 1.654 1.346 3 3 3h5.005a1 1 0 0 0 1-1L10 15c0-1.103.897-2 2-2 1.09 0 1.98.877 2 1.962L13.999 22a1 1 0 0 0 1 1H20c1.654 0 3-1.346 3-3v-8.32a4.021 4.021 0 0 0-1.238-2.894ZM21 20a1 1 0 0 1-1 1h-4.001L16 15c0-2.206-1.794-4-4-4s-4 1.794-4 4l.005 6H4a1 1 0 0 1-1-1v-8.32c0-.543.226-1.07.62-1.447l7-6.68c.747-.714 2.013-.714 2.76 0l7 6.68c.394.376.62.904.62 1.448V20Z"
+        ></path>
       </svg>
-    </button>
+    </RouterLink>
 
-    <button class="">
+    <RouterLink to="/create-publication" class="">
       <svg
         width="24"
         height="24"
         viewBox="0 0 24 24"
-        fill="none"
+        fill=""
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -38,11 +40,11 @@
           fill="currentColor"
         />
       </svg>
-    </button>
-    <button class="avatar">
+    </RouterLink>
+    <RouterLink to="/" class="avatar">
       <div class="rounded-full w-[25%]">
         <img src="https://avatar.vercel.sh/adrien2?size=500" />
       </div>
-    </button>
+    </RouterLink>
   </div>
 </template>
