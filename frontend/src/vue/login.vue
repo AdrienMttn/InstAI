@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import userService from "../service/userService";
 import { useUserStore } from "../stores/userStores";
-import { defineModel } from "vue";
 import { useRouter, RouterLink } from "vue-router";
-import { ref } from "vue";
+import { ref, type Ref } from "vue";
 
-const email = defineModel("email", { required: true });
-const password = defineModel("password", { required: true });
+const email: Ref<string> = defineModel("email", { required: true });
+const password: Ref<string> = defineModel("password", { required: true });
 const router = useRouter();
 const errorMessage = ref(undefined);
 

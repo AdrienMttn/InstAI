@@ -50,4 +50,21 @@ export default class userService {
       return { error: error.message };
     }
   }
+
+  static async user(username: any) {
+    try {
+      const res = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+        }),
+      });
+      return await res.json();
+    } catch (error: any) {
+      return { error: error.message };
+    }
+  }
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import userService from "../service/userService";
 import { useUserStore } from "../stores/userStores";
-import { defineModel, type Ref } from "vue";
+import { type Ref } from "vue";
 import { useRouter, RouterLink } from "vue-router";
 import { ref } from "vue";
 
