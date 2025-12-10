@@ -11,9 +11,9 @@ export async function generateImage(req, res) {
     }
     const { prompt } = req.body;
     const imgUrl = await fetch(
-      `https://enter.pollinations.ai/api/generate/image/${encodeURI(
+      `https://gen.pollinations.ai/api/generate/image/${encodeURI(
         prompt
-      )}?model=flux&nologo=true&width=1080&height=1080&quality=hd`,
+      )}?model=zimage&width=1080&height=1080&quality=hd`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${process.env.POLLINATION_API_KEY}` },
@@ -21,8 +21,7 @@ export async function generateImage(req, res) {
     );
     const buffer = Buffer.from(await imgUrl.arrayBuffer());
     req.session.generateImage = buffer.toString("base64");
-    res.set("Content-Type", "image/png");
-    res.send(buffer);
+    res.send({ image: buffer.toString("base64") });
   } catch (error) {
     res.status(error.status || 500).json({ error: error.message });
   }

@@ -89,7 +89,7 @@ export async function getUser(req, res) {
     const [result] = await connection.execute("call GetUserInfo(?)", [
       username,
     ]);
-    if (result.length === 0) {
+    if (result.error) {
       const error = new Error("User not found");
       error.status = 404;
       throw error;

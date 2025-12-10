@@ -67,4 +67,35 @@ export default class userService {
       return { error: error.message };
     }
   }
+
+  static async generate(prompt: string) {
+    try {
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+        }),
+      });
+      return await res.json();
+    } catch (error: any) {
+      return { error: error.message };
+    }
+  }
+
+  static async postPublication() {
+    try {
+      const res = await fetch("/api/post-publication", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return await res.json();
+    } catch (error: any) {
+      return { error: error.message };
+    }
+  }
 }
