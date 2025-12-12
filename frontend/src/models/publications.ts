@@ -1,3 +1,5 @@
+import userService from "../service/userService";
+
 export class Publication {
   private id: number;
   private image_url: string;
@@ -39,5 +41,18 @@ export class Publication {
   }
   getNbComment(): number {
     return this.nbComment;
+  }
+
+  async addOrRemoveLike() {
+    const res = await userService.likePublication(this.id);
+    if (res?.error) {
+      console.log(res.error);
+    } else {
+      if (res?.liked == 1) {
+        this.nbLike += 1;
+      } else {
+        this.nbLike -= 1;
+      }
+    }
   }
 }

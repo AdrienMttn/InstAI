@@ -7,7 +7,11 @@ const props = defineProps<{ user: User | null }>();
 
 <template>
   <div class="dock border-t border-base-300">
-    <RouterLink :to="{ name: 'accueil' }">
+    <RouterLink
+      :to="{ name: 'accueil' }"
+      activeClass="scale-125 transition duration-200 ease-out"
+      exactActiveClass="scale-100 transition duration-200 ease-out"
+    >
       <svg
         aria-label="Accueil"
         class="x1lliihq x1n2onr6 x5n08af"
@@ -24,7 +28,11 @@ const props = defineProps<{ user: User | null }>();
       </svg>
     </RouterLink>
 
-    <RouterLink to="/create-publication" class="">
+    <RouterLink
+      to="/create-publication"
+      activeClass="scale-125 transition duration-200 ease-out"
+      exactActiveClass="scale-100 transition duration-200 ease-out"
+    >
       <svg
         width="24"
         height="24"
@@ -48,12 +56,20 @@ const props = defineProps<{ user: User | null }>();
       v-if="user?.getUsername()"
       :to="{ name: 'profile', params: { username: user?.getUsername() } }"
       class="avatar"
+      activeClass="scale-125 transition duration-200 ease-out"
+      exactActiveClass="scale-100 transition duration-200 ease-out"
     >
       <div class="rounded-full w-[25%]">
         <img :src="props.user?.getImg()" />
       </div>
     </RouterLink>
-    <RouterLink v-if="!user?.getUsername()" to="/login" class="avatar">
+    <RouterLink
+      v-if="!user?.getUsername()"
+      to="/login"
+      class="avatar"
+      activeClass="scale-125 transition duration-200 ease-out"
+      exactActiveClass="scale-100 transition duration-200 ease-out"
+    >
       <div class="rounded-full w-[25%]">
         <img src="https://avatar.vercel.sh/adrien2?size=500" />
       </div>

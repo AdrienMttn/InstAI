@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Publication } from "../../models/publications";
 import { RouterLink } from "vue-router";
+
 const props = defineProps<{ post: Publication }>();
 </script>
 
@@ -22,7 +23,7 @@ const props = defineProps<{ post: Publication }>();
       <img class="rounded" :src="props.post.getImage_url()" />
       <div class="card-actions justify-start gap-5 cursor-default p-2">
         <div class="flex justify-center items-center gap-2">
-          <button class="cursor-pointer">
+          <button class="cursor-pointer" @click="props.post.addOrRemoveLike()">
             <svg
               aria-label="J’aime"
               class="x1lliihq x1n2onr6 xyb1xck"

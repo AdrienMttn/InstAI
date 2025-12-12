@@ -98,4 +98,21 @@ export default class userService {
       return { error: error.message };
     }
   }
+
+  static async likePublication(postId: number): Promise<any> {
+    try {
+      const res = await fetch("/api/like-dislike-publication", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          postId: postId,
+        }),
+      });
+      return await res.json();
+    } catch (error: any) {
+      return { error: error.message };
+    }
+  }
 }
