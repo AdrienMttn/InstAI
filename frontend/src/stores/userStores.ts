@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { User } from "../models/user.ts";
+import { User } from "../models/user";
 import userService from "../service/userService";
 import { ref, type Ref } from "vue";
 

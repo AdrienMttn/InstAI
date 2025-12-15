@@ -25,8 +25,9 @@ const props = defineProps<{ post: Publication }>();
         <div class="flex justify-center items-center gap-2">
           <button class="cursor-pointer" @click="props.post.addOrRemoveLike()">
             <svg
+              :class="{ 'text-red-400': props.post.getHasLiked() }"
+              class="transition duration-500"
               aria-label="J’aime"
-              class="x1lliihq x1n2onr6 xyb1xck"
               fill="currentColor"
               height="24"
               role="img"
@@ -45,7 +46,6 @@ const props = defineProps<{ post: Publication }>();
           <button class="cursor-pointer">
             <svg
               aria-label="Commenter"
-              class="x1lliihq x1n2onr6 x5n08af"
               fill="currentColor"
               height="24"
               role="img"

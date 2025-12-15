@@ -27,7 +27,8 @@ async function getPost() {
         post.username,
         post.profile_picture,
         post.nbLike,
-        post.nbComment
+        post.nbComment,
+        post.hasLiked
       )
   );
 

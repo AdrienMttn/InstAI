@@ -7,6 +7,7 @@ export class Publication {
   private profile_picture: string;
   private nbLike: number;
   private nbComment: number;
+  private hasLiked: boolean;
 
   constructor(
     id: number,
@@ -14,7 +15,8 @@ export class Publication {
     username: string,
     profile_picture: string,
     nbLike: number,
-    nbComment: number
+    nbComment: number,
+    hasLiked: boolean
   ) {
     this.id = id;
     this.image_url = image_url;
@@ -22,6 +24,7 @@ export class Publication {
     this.profile_picture = profile_picture;
     this.nbLike = nbLike;
     this.nbComment = nbComment;
+    this.hasLiked = hasLiked;
   }
 
   getId(): number {
@@ -42,12 +45,16 @@ export class Publication {
   getNbComment(): number {
     return this.nbComment;
   }
+  getHasLiked(): boolean {
+    return this.hasLiked;
+  }
 
   async addOrRemoveLike() {
     const res = await userService.likePublication(this.id);
     if (res?.error) {
       console.log(res.error);
     } else {
+      this.hasLiked = !this.hasLiked;
       if (res?.liked == 1) {
         this.nbLike += 1;
       } else {
