@@ -7,6 +7,7 @@ import { useUserStore } from "./stores/userStores";
 
 <template>
   <app-header />
+  <comment-component />
   <router-view />
   <nav-bar :user="useUserStore().user" />
 </template>

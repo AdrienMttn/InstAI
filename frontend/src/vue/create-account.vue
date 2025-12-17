@@ -42,9 +42,9 @@ async function createAccount() {
       <div class="avatar justify-center">
         <div class="w-24 rounded-full">
           <img
-            :src="`https://avatar.vercel.sh/${
+            :src="`https://boring-avatars-api.vercel.app/api/avatar?size=500&variant=beam&name=${
               username || 'sfsfgddfd'
-            }?size=500`"
+            }`"
           />
         </div>
       </div>

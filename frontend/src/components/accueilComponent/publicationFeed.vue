@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { Publication } from "../../models/publications";
-import { RouterLink } from "vue-router";
+import { useUserStore } from "../../stores/userStores";
+import { RouterLink, useRouter } from "vue-router";
 
+const router = useRouter();
 const props = defineProps<{ post: Publication }>();
 </script>
 
@@ -23,7 +25,14 @@ const props = defineProps<{ post: Publication }>();
       <img class="rounded" :src="props.post.getImage_url()" />
       <div class="card-actions justify-start gap-5 cursor-default p-2">
         <div class="flex justify-center items-center gap-2">
-          <button class="cursor-pointer" @click="props.post.addOrRemoveLike()">
+          <button
+            class="cursor-pointer"
+            @click="
+              useUserStore().isLogin
+                ? props.post.addOrRemoveLike()
+                : router.push({ name: 'login' })
+            "
+          >
             <svg
               :class="{ 'text-red-400': props.post.getHasLiked() }"
               class="transition duration-500"
@@ -43,7 +52,14 @@ const props = defineProps<{ post: Publication }>();
           <p>{{ props.post.getNbLike() }}</p>
         </div>
         <div class="flex justify-center items-center gap-2">
-          <button class="cursor-pointer">
+          <button
+            class="cursor-pointer"
+            @click="
+              useUserStore().isLogin
+                ? console.log('Je commente')
+                : router.push({ name: 'login' })
+            "
+          >
             <svg
               aria-label="Commenter"
               fill="currentColor"

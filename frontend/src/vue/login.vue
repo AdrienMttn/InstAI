@@ -32,7 +32,10 @@ async function login() {
       <div class="avatar justify-center">
         <div class="w-24 rounded-full">
           <img
-            src="https://avatar.vercel.sh/azdzsgbdsgouhdgizesdjfsdokqzifusehfojfseifn?size=500"
+            :src="
+              'https://boring-avatars-api.vercel.app/api/avatar?size=500&variant=beam&name=' +
+              email
+            "
           />
         </div>
       </div>

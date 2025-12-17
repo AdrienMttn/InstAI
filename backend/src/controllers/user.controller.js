@@ -26,7 +26,7 @@ export async function createAccount(req, res) {
       username,
       email,
       password,
-      `https://avatar.vercel.sh/${username}?size=500`,
+      `https://boring-avatars-api.vercel.app/api/avatar?size=500&variant=beam&name=${username}`,
     ]);
     if (result[0][0].error) {
       return res.status(200).json({

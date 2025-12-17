@@ -52,7 +52,9 @@ export class Publication {
   async addOrRemoveLike() {
     const res = await userService.likePublication(this.id);
     if (res?.error) {
-      console.log(res.error);
+      if (res.status === 401) {
+        console.log(res);
+      }
     } else {
       this.hasLiked = !this.hasLiked;
       if (res?.liked == 1) {
