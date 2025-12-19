@@ -55,9 +55,13 @@ const props = defineProps<{ post: Publication }>();
           <button
             class="cursor-pointer"
             @click="
-              useUserStore().isLogin
-                ? console.log('Je commente')
-                : router.push({ name: 'login' })
+              router.push({
+                name: 'publication',
+                params: {
+                  username: props.post.getUsername(),
+                  idPost: props.post.getId(),
+                },
+              })
             "
           >
             <svg
