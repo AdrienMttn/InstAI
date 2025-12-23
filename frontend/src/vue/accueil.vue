@@ -3,7 +3,7 @@ import { Publication } from "../models/publications";
 import { onMounted, ref, type Ref, nextTick } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Feeds from "../service/feedService";
+import publicationService from "../service/publicationService";
 import publicationFeed from "../components/accueilComponent/publicationFeed.vue";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -18,7 +18,7 @@ async function getPost() {
   listPost.value.forEach((post: Publication) => {
     postDejaVue.value.push(post.getId());
   });
-  const data = await Feeds.getFeed(postDejaVue.value);
+  const data = await publicationService.getFeed(postDejaVue.value);
   const posts = data.map(
     (post: any) =>
       new Publication(
@@ -28,7 +28,8 @@ async function getPost() {
         post.profile_picture,
         post.nbLike,
         post.nbComment,
-        post.hasLiked
+        post.hasLiked,
+        post.comment
       )
   );
 
@@ -52,7 +53,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="w-screen pt-15 pb-16 flex flex-col items-center">
+  <div class="w-full pt-15 pb-16 flex flex-col items-center">
     <publicationFeed v-for="post in listPost" :post="post" />
     <div ref="sentinel"></div>
   </div>

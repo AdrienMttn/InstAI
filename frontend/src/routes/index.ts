@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-
 import accueil from "../vue/accueil.vue";
 import login from "../vue/login.vue";
 import createPublication from "../vue/create-publication.vue";

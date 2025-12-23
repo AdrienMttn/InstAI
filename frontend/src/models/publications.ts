@@ -1,4 +1,5 @@
 import userService from "../service/userService";
+import { Comment } from "./comment.ts";
 
 export class Publication {
   private id: number;
@@ -8,6 +9,7 @@ export class Publication {
   private nbLike: number;
   private nbComment: number;
   private hasLiked: boolean;
+  private listComment: Comment[];
 
   constructor(
     id: number,
@@ -16,7 +18,8 @@ export class Publication {
     profile_picture: string,
     nbLike: number,
     nbComment: number,
-    hasLiked: boolean
+    hasLiked: boolean,
+    listComment: Comment[]
   ) {
     this.id = id;
     this.image_url = image_url;
@@ -25,6 +28,7 @@ export class Publication {
     this.nbLike = nbLike;
     this.nbComment = nbComment;
     this.hasLiked = hasLiked;
+    this.listComment = listComment;
   }
 
   getId(): number {
@@ -48,7 +52,9 @@ export class Publication {
   getHasLiked(): boolean {
     return this.hasLiked;
   }
-
+  getListComment(): Comment[] {
+    return this.listComment;
+  }
   async addOrRemoveLike() {
     const res = await userService.likePublication(this.id);
     if (res?.error) {

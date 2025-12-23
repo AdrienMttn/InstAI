@@ -36,7 +36,8 @@ async function initUser() {
         profile_picture.value,
         0,
         0,
-        false
+        false,
+        []
       )
     );
   });

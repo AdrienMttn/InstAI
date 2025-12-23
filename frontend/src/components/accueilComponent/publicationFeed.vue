@@ -8,8 +8,8 @@ const props = defineProps<{ post: Publication }>();
 </script>
 
 <template>
-  <div :class="'card ' + post.getId()">
-    <div class="w-95 flex flex-col gap-2">
+  <div class="card">
+    <div class="md:w-[50vw] lg:w-[40vw] xl:w-[25vw] flex flex-col gap-2">
       <RouterLink
         :to="{
           name: 'profile',
