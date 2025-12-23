@@ -119,4 +119,22 @@ export default class userService {
       return { error: error.message };
     }
   }
+
+  static async commentPublication(postId: number, message: string) {
+    try {
+      const res = await fetch("/api/comment-publication", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          postId: postId,
+          commentText: message,
+        }),
+      });
+      return res.json();
+    } catch (error: any) {
+      return { error: error.message };
+    }
+  }
 }

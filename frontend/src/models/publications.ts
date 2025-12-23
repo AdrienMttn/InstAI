@@ -1,4 +1,5 @@
 import userService from "../service/userService";
+import { useUserStore } from "../stores/userStores.ts";
 import { Comment } from "./comment.ts";
 
 export class Publication {
@@ -68,6 +69,23 @@ export class Publication {
       } else {
         this.nbLike -= 1;
       }
+    }
+  }
+
+  async addComment(message: string) {
+    if (useUserStore().isLogin) {
+      const res = await userService.commentPublication(this.id, message);
+      if (res.success) {
+        this.listComment.push(
+          new Comment(
+            String(useUserStore().user?.getUsername()),
+            String(useUserStore().user?.getImg()),
+            message
+          )
+        );
+        this.nbComment++;
+      }
+      console.log(res);
     }
   }
 }

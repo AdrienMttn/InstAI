@@ -9,6 +9,7 @@ import { Comment } from "../models/comment";
 import { useUserStore } from "../stores/userStores";
 
 const route = useRoute();
+const message: Ref<string> = defineModel("message", { required: true });
 const publication: Ref<Publication | undefined> = ref(undefined);
 const comments: Ref<Comment[]> = ref([]);
 
@@ -63,10 +64,22 @@ initPublication();
         </div>
       </div>
       <textarea
+        v-model="message"
         class="textarea resize-none w-full border-none outline-none"
         placeholder="Add comment ..."
       ></textarea>
-      <button class="button hover:underline cursor-pointer">Post</button>
+      <button
+        class="button hover:underline cursor-pointer font-bold"
+        v-if="message"
+        @click="
+          () => {
+            publication?.addComment(message);
+            message = '';
+          }
+        "
+      >
+        Post
+      </button>
     </div>
   </div>
 </template>
