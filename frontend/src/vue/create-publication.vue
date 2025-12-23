@@ -45,22 +45,24 @@ async function postPublication() {
 </script>
 
 <template>
-  <div class="pt-20 pb-40 flex flex-col items-center gap-10 MainDiv">
+  <div
+    class="w-full min-h-screen pt-20 pb-40 flex flex-col items-center justify-center gap-10 MainDiv"
+  >
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Your prompt</legend>
       <textarea
         v-model="prompt"
-        class="textarea w-[90vw] sm:w-[30vw] h-24 bg-base-200 resize-none rounded"
+        class="textarea w-[90vw] md:w-[60vw] lg:w-[50vw] xl:w-[40vw] h-24 bg-base-300 resize-none rounded"
         placeholder="Prompt"
       ></textarea>
-      <button class="btn btn-neutral btn-outline rounded" @click="Generate()">
+      <button class="btn btn-primary btn-outline rounded" @click="Generate()">
         ✨ Generate ✨
       </button>
       <p class="text-red-600" v-if="promptError">Enter a prompt</p>
     </fieldset>
 
     <div class="card">
-      <div class="w-95 flex flex-col gap-2">
+      <div class="md:w-[50vw] lg:w-[40vw] xl:w-[25vw] flex flex-col gap-2">
         <div
           class="avatar flex justify-start items-center gap-3 cursor-pointer p-2"
         >
@@ -71,12 +73,18 @@ async function postPublication() {
             {{ useUserStore().user?.getUsername() }}
           </p>
         </div>
-        <img v-if="!isLoading || imageGen" class="rounded" :src="imageGen" />
-        <div
-          v-if="!imageGen"
-          class="rounded skeleton w-95 h-95 flex justify-center items-center"
-        >
-          <span v-if="isLoading" class="loading loading-ring w-20"></span>
+        <div class="w-full aspect-square relative">
+          <img
+            v-if="imageGen && !isLoading"
+            class="rounded w-full h-full object-cover"
+            :src="imageGen"
+          />
+          <div
+            v-else
+            class="rounded skeleton w-full h-full flex justify-center items-center"
+          >
+            <span v-if="isLoading" class="loading loading-ring w-20"></span>
+          </div>
         </div>
         <div class="card-actions justify-start gap-5 cursor-default p-2">
           <div class="flex justify-center items-center gap-2">
@@ -126,7 +134,7 @@ async function postPublication() {
     </div>
     <button
       v-if="imageGen"
-      class="btn btn-neutral btn-outline rounded-2xl"
+      class="btn btn-primary btn-outline rounded-2xl"
       @click="postPublication()"
     >
       Post ⌲

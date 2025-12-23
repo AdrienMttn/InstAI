@@ -39,7 +39,7 @@ initPublication();
 <template>
   <div
     v-if="publication"
-    class="w-full flex flex-col items-center min-h-screen justify-center pb-20 pt-15"
+    class="w-full flex flex-col items-center min-h-screen justify-center pt-15"
   >
     <publicationFeed :post="publication" />
     <div
@@ -69,7 +69,7 @@ initPublication();
         placeholder="Add comment ..."
       ></textarea>
       <button
-        class="button hover:underline cursor-pointer font-bold"
+        class="button hover:underline cursor-pointer font-bold self-center"
         v-if="message"
         @click="
           () => {
