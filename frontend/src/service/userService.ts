@@ -137,4 +137,52 @@ export default class userService {
       return { error: error.message };
     }
   }
+
+  static async exploreUsers() {
+    try {
+      const res = await fetch("/api/explore-users", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return await res.json();
+    } catch (error: any) {
+      return { error: error.message };
+    }
+  }
+
+  static async searchUsers(username: string) {
+    try {
+      const res = await fetch("/api/search-users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+        }),
+      });
+      return await res.json();
+    } catch (error: any) {
+      return { error: error.message };
+    }
+  }
+
+  static async followUser(userId: number) {
+    try {
+      const res = await fetch("/api/follow-unfollow-user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userId,
+        }),
+      });
+      return await res.json();
+    } catch (error: any) {
+      return { error: error.message };
+    }
+  }
 }

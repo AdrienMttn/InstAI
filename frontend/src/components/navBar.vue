@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
-import { User } from "../models/user";
-
-const props = defineProps<{ user: User | null }>();
+import { useUserStore } from "../stores/userStores";
 </script>
 
 <template>
@@ -53,25 +51,61 @@ const props = defineProps<{ user: User | null }>();
       </svg>
     </RouterLink>
     <RouterLink
-      v-if="user?.getUsername()"
-      :to="{ name: 'profile', params: { username: user?.getUsername() } }"
-      class="avatar"
+      :to="'/search'"
       activeClass="scale-125 transition duration-200 ease-out"
       exactActiveClass="scale-100 transition duration-200 ease-out"
     >
-      <div class="rounded-full w-[25%]">
-        <img :src="props.user?.getImg()" />
-      </div>
+      <svg
+        aria-label="Recherche"
+        fill="currentColor"
+        height="24"
+        role="img"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <title>Recherche</title>
+        <path
+          d="M18.5 10.5a8 8 0 1 1-8-8 8 8 0 0 1 8 8Z"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+        ></path>
+        <line
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+          x1="16.511"
+          x2="21.643"
+          y1="16.511"
+          y2="21.643"
+        ></line>
+      </svg>
     </RouterLink>
     <RouterLink
-      v-if="!user?.getUsername()"
-      to="/login"
+      :to="
+        useUserStore().isLogin
+          ? {
+              name: 'profile',
+              params: { username: useUserStore().user?.getUsername() },
+            }
+          : '/login'
+      "
       class="avatar"
       activeClass="scale-125 transition duration-200 ease-out"
       exactActiveClass="scale-100 transition duration-200 ease-out"
     >
       <div class="rounded-full w-[25%]">
-        <img src="https://avatar.vercel.sh/adrien2?size=500" />
+        <img
+          :src="
+            useUserStore().isLogin
+              ? useUserStore().user?.getImg()
+              : 'https://boring-avatars-api.vercel.app/api/avatar?size=500&variant=beam'
+          "
+        />
       </div>
     </RouterLink>
   </div>

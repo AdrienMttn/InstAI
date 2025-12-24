@@ -39,7 +39,7 @@ initPublication();
 <template>
   <div
     v-if="publication"
-    class="w-full flex flex-col items-center min-h-screen justify-center pt-15"
+    class="w-full flex flex-col items-center min-h-screen justify-center pb-20 pt-15"
   >
     <publicationFeed :post="publication" />
     <div
@@ -58,9 +58,7 @@ initPublication();
     >
       <div class="avatar">
         <div class="w-8 rounded-full">
-          <img
-            src="https://boring-avatars-api.vercel.app/api/avatar?size=500&variant=beam&name=adrien_mttn"
-          />
+          <img :src="useUserStore().user?.getImg()" />
         </div>
       </div>
       <textarea

@@ -13,7 +13,7 @@ export async function generateImage(req, res) {
     const imgUrl = await fetch(
       `https://gen.pollinations.ai/api/generate/image/${encodeURI(
         prompt
-      )}?model=flux&width=1080&height=1080&quality=hd`,
+      )}?model=gptimage&width=1024&height=1024&quality=hd`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${process.env.POLLINATION_API_KEY}` },

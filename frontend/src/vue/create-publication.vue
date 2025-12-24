@@ -46,7 +46,7 @@ async function postPublication() {
 
 <template>
   <div
-    class="w-full min-h-screen pt-20 pb-40 flex flex-col items-center justify-center gap-10 MainDiv"
+    class="w-full min-h-screen pt-20 pb-40 flex flex-col items-center justify-center gap-10"
   >
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Your prompt</legend>
@@ -55,7 +55,11 @@ async function postPublication() {
         class="textarea w-[90vw] md:w-[60vw] lg:w-[50vw] xl:w-[40vw] h-24 bg-base-300 resize-none rounded"
         placeholder="Prompt"
       ></textarea>
-      <button class="btn btn-primary btn-outline rounded" @click="Generate()">
+      <button
+        :class="{ 'btn-disabled': isLoading }"
+        class="btn btn-primary btn-outline rounded"
+        @click="Generate()"
+      >
         ✨ Generate ✨
       </button>
       <p class="text-red-600" v-if="promptError">Enter a prompt</p>

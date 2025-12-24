@@ -14,6 +14,8 @@ import {
   commentPubli,
   followUser,
   getSessionUser,
+  exploreUsers,
+  searchUsers,
 } from "./controllers/user.controller.js";
 import { feed, getPost } from "./controllers/publication.controller.js";
 
@@ -45,6 +47,8 @@ app.post("/comment-publication", commentPubli);
 app.post("/follow-unfollow-user", followUser);
 app.post("/user", getUser);
 app.post("/session-user", getSessionUser);
+app.get("/explore-users", exploreUsers);
+app.post("/search-users", searchUsers);
 
 // Endpoint for publication controller
 app.post("/feed", feed);

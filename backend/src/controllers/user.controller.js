@@ -86,7 +86,8 @@ export function logout(req, res) {
 export async function getUser(req, res) {
   try {
     const { username } = req.body;
-    const [result] = await connection.execute("call GetUserInfo(?)", [
+    const [result] = await connection.execute("call GetUserInfo(?,?)", [
+      req.session.user?.id || 0,
       username,
     ]);
     if (result.error) {
@@ -182,6 +183,30 @@ export async function followUser(req, res) {
       [req.session.user.id, userId]
     );
     res.status(200).json({ follow: result[0][0].is_following });
+  } catch (error) {
+    res.status(error.status || 500).json({ error: error.message });
+  }
+}
+
+export async function exploreUsers(req, res) {
+  try {
+    const result = await connection.execute("call ExploreUser(?)", [
+      req.session.user?.id || 0,
+    ]);
+    res.send(result[0][0]);
+  } catch (error) {
+    res.status(error.status || 500).json({ error: error.message });
+  }
+}
+
+export async function searchUsers(req, res) {
+  try {
+    const { username } = req.body;
+    const result = await connection.execute("call SearchUser(?,?)", [
+      req.session.user?.id || 0,
+      username,
+    ]);
+    res.send(result[0][0]);
   } catch (error) {
     res.status(error.status || 500).json({ error: error.message });
   }
