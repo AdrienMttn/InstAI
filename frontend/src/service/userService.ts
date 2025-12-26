@@ -18,7 +18,7 @@ export default class userService {
     }
   }
 
-  static async create(username: string, email: string, password: string) {
+  static async create(username: string) {
     try {
       const res = await fetch("/api/create-account", {
         method: "POST",
@@ -27,8 +27,6 @@ export default class userService {
         },
         body: JSON.stringify({
           username: username,
-          email: email,
-          password: password,
         }),
       });
       return await res.json();

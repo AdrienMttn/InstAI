@@ -5,7 +5,7 @@ const props = defineProps<{ comment: Comment }>();
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col w-full">
     <div class="avatar flex gap-3 items-center">
       <div class="w-8 rounded-full">
         <img :src="props.comment.getProfile_picture()" />

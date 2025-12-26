@@ -1,71 +1,73 @@
 import connection from "../config/bd.js";
 import { User } from "../models/user.js";
 import { postOnPostimg } from "./image.controller.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-export async function createAccount(req, res) {
-  const passwordRegex =
-    /^(?=.{8,64}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(?:_|[^\w\s])).*$/;
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-  const validPassword = (password) => passwordRegex.test(password);
-  const validEmail = (email) => emailRegex.test(email);
+export async function loginGithub(req, res) {
   try {
-    const { username, email, password } = req.body;
-    if (!validPassword(password)) {
-      return res.status(200).json({
-        error:
-          "Password must be 8-64 characters long and include at least one lowercase letter, one uppercase letter, one digit, and one special character.",
-      });
+    const user = req.user;
+    const [result] = await connection.execute("call Login(?)", [user.id]);
+    if (result[0][0].notExist) {
+      req.session.tempUserId = user.id;
+      res.redirect(`${process.env.FRONTEND_URL}/create-account`);
+    } else {
+      req.session.user = {
+        id: result[0][0].id,
+        username: result[0][0].username,
+        img: result[0][0].profile_picture,
+      };
+      res.redirect(`${process.env.FRONTEND_URL}/`);
     }
-    if (!validEmail(email)) {
-      return res.status(200).json({
-        error: "Invalid email format.",
-      });
-    }
-    const [result] = await connection.execute("call AddUser(?, ?, ?, ?)", [
-      username,
-      email,
-      password,
-      `https://boring-avatars-api.vercel.app/api/avatar?size=500&variant=beam&name=${username}`,
-    ]);
-    if (result[0][0].error) {
-      return res.status(200).json({
-        error: result[0][0].message,
-      });
-    }
-    const user = new User(
-      result[0][0].id,
-      username,
-      email,
-      result[0][0].profile_picture
-    );
-    req.session.user = user;
-    res.status(201).json({ success: "Account created successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(error.status || 500).json({ error: error.message });
+  }
+}
+export async function loginGoogle(req, res) {
+  try {
+    const user = req.user;
+    const [result] = await connection.execute("call Login(?)", [user.id]);
+    if (result[0][0].notExist) {
+      req.session.tempUserId = user.id;
+      res.redirect(`${process.env.FRONTEND_URL}/create-account`);
+    } else {
+      req.session.user = {
+        id: result[0][0].id,
+        username: result[0][0].username,
+        img: result[0][0].profile_picture,
+      };
+      res.redirect(`${process.env.FRONTEND_URL}/`);
+    }
+  } catch (error) {
+    res.status(error.status || 500).json({ error: error.message });
   }
 }
 
-export async function login(req, res) {
+export async function createAccount(req, res) {
   try {
-    const { email, password } = req.body;
-    const [result] = await connection.execute("call login(?, ?)", [
-      email,
-      password,
-    ]);
-    if (result[0][0].error) {
-      res.status(200).json({ error: result[0][0].message });
+    const { username } = req.body;
+    if (req.session.tempUserId) {
+      const [result] = await connection.execute("call CreateAccount(?,?,?)", [
+        req.session.tempUserId,
+        username,
+        `https://boring-avatars-api.vercel.app/api/avatar?size=500&variant=beam&name=${username}`,
+      ]);
+      if (result[0][0].error) {
+        res.send({ error: result[0][0].message });
+      } else {
+        req.session.user = {
+          id: result[0][0].id,
+          username: result[0][0].username,
+          img: result[0][0].profile_picture,
+        };
+        delete req.session.tempUserId;
+        res.send({ success: "account create" });
+      }
     } else {
-      req.session.user = new User(
-        result[0][0].id,
-        result[0][0].username,
-        result[0][0].email,
-        result[0][0].profile_picture
-      );
-      res.status(200).json({ success: "Login successful" });
+      throw new Error("tempUserId undefined");
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(error.status || 500).json({ error: error.message });
   }
 }
 

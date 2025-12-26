@@ -21,7 +21,6 @@ async function initUser() {
   user.value = new User(
     res.id,
     res.username,
-    res.email,
     res.profile_picture,
     res.nbFollow,
     res.nbFollower,

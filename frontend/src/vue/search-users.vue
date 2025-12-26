@@ -14,7 +14,6 @@ async function initUsers() {
       new User(
         user.id,
         user.username,
-        user.email,
         user.profile_picture,
         0,
         user.nbFollower,
@@ -33,7 +32,6 @@ async function searchUsers() {
       new User(
         user.id,
         user.username,
-        user.email,
         user.profile_picture,
         0,
         user.nbFollower,

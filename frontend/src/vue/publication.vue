@@ -39,13 +39,13 @@ initPublication();
 <template>
   <div
     v-if="publication"
-    class="w-full flex flex-col items-center min-h-screen justify-center pb-20 pt-15"
+    class="w-full flex flex-col md:items-center min-h-screen justify-center pb-20 pt-15"
   >
     <publicationFeed :post="publication" />
     <div
       class="flex flex-col h-[20vh] overflow-y-scroll md:w-[50vw] lg:w-[40vw] xl:w-[25vw] mt-10"
     >
-      <div class="flex flex-col h-[90vh] gap-5">
+      <div class="flex flex-col w-full h-[90vh] gap-5">
         <commentComponent
           :comment="comment"
           v-for="comment in publication.getListComment()"
