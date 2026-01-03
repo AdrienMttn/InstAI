@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { User } from "../../models/user";
 import { useUserStore } from "../../stores/userStores";
-import { useRouter } from "vue-router";
+import { useRouter, RouterLink } from "vue-router";
 
 const router = useRouter();
 const props = defineProps<{ user: User }>();
@@ -23,10 +23,13 @@ const props = defineProps<{ user: User }>();
           <p class="font-bold">{{ props.user.getNbPost() }}</p>
           <p>Publications</p>
         </div>
-        <div class="text-xs sm:text-sm">
+        <RouterLink
+          :to="`/${props.user.getUsername()}/followers`"
+          class="text-xs sm:text-sm"
+        >
           <p class="font-bold">{{ props.user.getNbFollower() }}</p>
           <p>Followers</p>
-        </div>
+        </RouterLink>
         <div class="text-xs sm:text-sm">
           <p class="font-bold">{{ props.user.getNbFollow() }}</p>
           <p>Followed</p>

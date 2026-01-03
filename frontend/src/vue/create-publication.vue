@@ -37,7 +37,9 @@ async function Generate() {
 }
 
 async function postPublication() {
+  isLoading.value = true;
   const res = await userService.postPublication();
+  isLoading.value = false;
   if (res.success) {
     router.push({ name: "accueil" });
   }
@@ -138,6 +140,7 @@ async function postPublication() {
     </div>
     <button
       v-if="imageGen"
+      :class="{ 'btn-disabled': isLoading }"
       class="btn btn-primary btn-outline rounded-2xl"
       @click="postPublication()"
     >

@@ -1,13 +1,16 @@
 <script setup lang="ts">
-// import userService from "../service/userService";
-// import { useUserStore } from "../stores/userStores";
-// import { useRouter, RouterLink } from "vue-router";
-// import { ref, type Ref } from "vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from "../stores/userStores";
+import { onMounted } from "vue";
 
-// const router = useRouter();
-// const errorMessage = ref(undefined);
+const router = useRouter();
+
+onMounted(() => {
+  if (useUserStore().isLogin) {
+    router.back();
+  }
+});
 </script>
-
 <template>
   <div class="flex justify-center items-center w-screen h-screen">
     <form

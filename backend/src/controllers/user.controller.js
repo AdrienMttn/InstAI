@@ -1,3 +1,4 @@
+import e from "express";
 import connection from "../config/bd.js";
 import { User } from "../models/user.js";
 import { postOnPostimg } from "./image.controller.js";
@@ -208,7 +209,45 @@ export async function searchUsers(req, res) {
       req.session.user?.id || 0,
       username,
     ]);
-    res.send(result[0][0]);
+    if (result[0][0].error) {
+      res.send({ error: result[0][0].message });
+    } else {
+      res.send(result[0][0]);
+    }
+  } catch (error) {
+    res.status(error.status || 500).json({ error: error.message });
+  }
+}
+
+export async function getFollowers(req, res) {
+  try {
+    const { username } = req.body;
+    const result = await connection.execute("call GetFollowers(?,?)", [
+      req.session.user?.id || 0,
+      username,
+    ]);
+    if (result[0][0][0].error) {
+      res.send({ error: result[0][0][0].message });
+    } else {
+      res.send(result[0][0]);
+    }
+  } catch (error) {
+    res.status(error.status || 500).json({ error: error.message });
+  }
+}
+
+export async function getFollowed(req, res) {
+  try {
+    const { username } = req.body;
+    const result = await connection.execute("call GetFollowed(?,?)", [
+      req.session.user?.id || 0,
+      username,
+    ]);
+    if (result[0][0][0].error) {
+      res.send({ error: result[0][0][0].message });
+    } else {
+      res.send(result[0][0]);
+    }
   } catch (error) {
     res.status(error.status || 500).json({ error: error.message });
   }

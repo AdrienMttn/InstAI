@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { User } from "../../models/user";
-import { useUserStore } from "../../stores/userStores";
+import { User } from "../models/user";
+import { useUserStore } from "../stores/userStores";
 import { RouterLink, useRouter } from "vue-router";
 const props = defineProps<{ user: User }>();
 const router = useRouter();
 </script>
 
 <template>
-  <li
-    class="list-row flex justify-between items-center"
-    v-if="!props.user.getisUserConnected()"
-  >
+  <li class="list-row flex justify-between items-center">
     <RouterLink
       :to="{
         name: 'profile',
@@ -28,6 +25,7 @@ const router = useRouter();
     </RouterLink>
 
     <button
+      v-if="!props.user.getisUserConnected()"
       class="btn btn-accent btn-sm"
       @click="
         useUserStore().isLogin

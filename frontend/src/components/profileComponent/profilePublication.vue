@@ -19,7 +19,7 @@ const props = defineProps<{ post: Publication }>();
     "
   >
     <img
-      class="w-[30vw] rounded cursor-pointer"
+      class="w-[40vw] md:w-[30vw] rounded cursor-pointer"
       :src="props.post.getImage_url()"
     />
   </div>

@@ -1,23 +1,4 @@
 export default class userService {
-  static async login(email: string | unknown, password: string | unknown) {
-    try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: email, password: password }),
-      });
-      const data = await res.json();
-      if (res.status === 401) {
-        return data;
-      }
-      return data;
-    } catch (error: any) {
-      return { error: error.message };
-    }
-  }
-
   static async create(username: string) {
     try {
       const res = await fetch("/api/create-account", {
@@ -176,6 +157,40 @@ export default class userService {
         },
         body: JSON.stringify({
           userId: userId,
+        }),
+      });
+      return await res.json();
+    } catch (error: any) {
+      return { error: error.message };
+    }
+  }
+
+  static async getFollowers(username: string) {
+    try {
+      const res = await fetch("/api/get-followers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+        }),
+      });
+      return await res.json();
+    } catch (error: any) {
+      return { error: error.message };
+    }
+  }
+
+  static async getFollowed(username: string) {
+    try {
+      const res = await fetch("/api/get-followed", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
         }),
       });
       return await res.json();

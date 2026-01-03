@@ -23,6 +23,8 @@ import {
   getSessionUser,
   exploreUsers,
   searchUsers,
+  getFollowers,
+  getFollowed,
 } from "./controllers/user.controller.js";
 import { feed, getPost } from "./controllers/publication.controller.js";
 
@@ -123,6 +125,8 @@ app.post("/user", getUser);
 app.post("/session-user", getSessionUser);
 app.get("/explore-users", exploreUsers);
 app.post("/search-users", searchUsers);
+app.post("/get-followers", getFollowers);
+app.post("/get-followed", getFollowed);
 
 // Endpoint for publication controller
 app.post("/feed", feed);

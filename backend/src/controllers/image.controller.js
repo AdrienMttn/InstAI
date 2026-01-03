@@ -13,12 +13,17 @@ export async function generateImage(req, res) {
     const imgUrl = await fetch(
       `https://gen.pollinations.ai/api/generate/image/${encodeURI(
         prompt
-      )}?model=gptimage&width=1024&height=1024&quality=hd`,
+      )}?model=zimage&width=1024&height=1024&quality=hd&seed=-1`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${process.env.POLLINATION_API_KEY}` },
       }
     );
+    if (imgUrl.status === 500) {
+      const error = new Error("Image generation failed");
+      error.status = 400;
+      throw error;
+    }
     const buffer = Buffer.from(await imgUrl.arrayBuffer());
     req.session.generateImage = buffer.toString("base64");
     res.send({ image: buffer.toString("base64") });
@@ -26,6 +31,8 @@ export async function generateImage(req, res) {
     res.status(error.status || 500).json({ error: error.message });
   }
 }
+
+// prompt bug : shrek qui mange plein de bonbon
 
 // poster l'image générer sur postimg.cc
 export async function postOnPostimg(file) {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
-import userComponent from "../components/searchComponent/userComponent.vue";
+import userComponent from "../components/userComponent.vue";
 import { User } from "../models/user";
 import userService from "../service/userService";
 

@@ -6,6 +6,7 @@ import createAccount from "../vue/create-account.vue";
 import profile from "../vue/profile.vue";
 import publication from "../vue/publication.vue";
 import searchUsers from "../vue/search-users.vue";
+import followers from "../vue/followers.vue";
 import { useUserStore } from "../stores/userStores";
 
 const routes = [
@@ -46,6 +47,7 @@ const routes = [
   },
   { path: "/:username", name: "profile", component: profile },
   { path: "/:username/:idPost", name: "publication", component: publication },
+  { path: "/:username/followers", name: "followers", component: followers },
   { path: "/search", name: "search", component: searchUsers },
 ];
 
