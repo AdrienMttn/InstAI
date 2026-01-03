@@ -7,8 +7,8 @@ import { useUserStore } from "../stores/userStores";
   <div class="dock border-t border-base-300">
     <RouterLink
       :to="{ name: 'accueil' }"
-      activeClass="scale-125 transition duration-200 ease-out"
-      exactActiveClass="scale-100 transition duration-200 ease-out"
+      activeClass="text-accent transition duration-200 ease-out"
+      exactActiveClass="transition duration-200 ease-out"
     >
       <svg
         aria-label="Accueil"
@@ -28,8 +28,8 @@ import { useUserStore } from "../stores/userStores";
 
     <RouterLink
       to="/create-publication"
-      activeClass="scale-125 transition duration-200 ease-out"
-      exactActiveClass="scale-100 transition duration-200 ease-out"
+      activeClass="text-accent transition duration-200 ease-out"
+      exactActiveClass=" transition duration-200 ease-out"
     >
       <svg
         width="24"
@@ -52,8 +52,8 @@ import { useUserStore } from "../stores/userStores";
     </RouterLink>
     <RouterLink
       :to="'/search'"
-      activeClass="scale-125 transition duration-200 ease-out"
-      exactActiveClass="scale-100 transition duration-200 ease-out"
+      activeClass="text-accent transition duration-200 ease-out"
+      exactActiveClass="transition duration-200 ease-out"
     >
       <svg
         aria-label="Recherche"
@@ -95,8 +95,8 @@ import { useUserStore } from "../stores/userStores";
           : '/login'
       "
       class="avatar"
-      activeClass="scale-125 transition duration-200 ease-out"
-      exactActiveClass="scale-100 transition duration-200 ease-out"
+      activeClass="text-accent transition duration-200 ease-out"
+      exactActiveClass="transition duration-200 ease-out"
     >
       <div class="rounded-full w-[25%]">
         <img

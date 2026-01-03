@@ -6,15 +6,15 @@ import userService from "../service/userService";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const listFollowers: Ref<User[]> = ref([]);
+const listFollowed: Ref<User[]> = ref([]);
 
-async function initFollowers() {
-  const data = await userService.getFollowers(String(route.params.username));
+async function initFollowed() {
+  const data = await userService.getFollowed(String(route.params.username));
   if (data.error) {
     console.log(data);
   } else {
     data.map((user: any) => {
-      listFollowers.value.push(
+      listFollowed.value.push(
         new User(
           user.id,
           user.username,
@@ -28,7 +28,7 @@ async function initFollowers() {
     });
   }
 }
-initFollowers();
+initFollowed();
 </script>
 
 <template>
@@ -36,12 +36,12 @@ initFollowers();
     <div
       class="flex flex-col gap-5 min-h-100 max-h-100 w-fit rounded-2xl pt-5 pb-5 md:p-5 md:shadow shadow-accent"
     >
-      <h1 class="text-5xl font-bold">Followers</h1>
+      <h1 class="text-5xl font-bold">Followed</h1>
       <ul
-        v-if="listFollowers.length !== 0"
+        v-if="listFollowed.length !== 0"
         class="w-screen md:w-[70vw] xl:w-[50vw] list bg-base-100 rounded-box overflow-scroll overflow-x-hidden min-h-75 max-h-75"
       >
-        <userComponent :user="follower" v-for="follower in listFollowers" />
+        <userComponent :user="follower" v-for="follower in listFollowed" />
       </ul>
       <p
         v-else

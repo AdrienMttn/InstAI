@@ -30,10 +30,13 @@ const props = defineProps<{ user: User }>();
           <p class="font-bold">{{ props.user.getNbFollower() }}</p>
           <p>Followers</p>
         </RouterLink>
-        <div class="text-xs sm:text-sm">
+        <RouterLink
+          :to="`/${props.user.getUsername()}/followed`"
+          class="text-xs sm:text-sm"
+        >
           <p class="font-bold">{{ props.user.getNbFollow() }}</p>
           <p>Followed</p>
-        </div>
+        </RouterLink>
       </div>
     </div>
     <button
