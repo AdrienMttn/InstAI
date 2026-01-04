@@ -10,7 +10,7 @@
 
 _Un réseau social innovant où l'art de l'IA prend vie_ ✨
 
-[🚀 Demo](#-démonstration) • [📖 Documentation](#-documentation) • [🛠️ Installation](#️-installation) • [🤝 Contribution](#-contribution)
+[🚀 Demo](#-démonstration)
 
 </div>
 
@@ -174,13 +174,10 @@ InstAI/
 └── readme.md
 ```
 
----
-
 ## 🎨 Captures d'écran
 
 <img src="img/accueil.png">
 <img src="img/profile.png">
----
 
 ## 🐛 Problèmes connus
 
