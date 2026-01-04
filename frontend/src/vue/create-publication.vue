@@ -24,6 +24,7 @@ async function Generate() {
   promptError.value = false;
   if (!prompt.value) {
     promptError.value = true;
+    isLoading.value = false;
     return;
   }
   const res = await userService.generate(prompt.value);

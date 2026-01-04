@@ -43,6 +43,7 @@ initPublication();
   >
     <publicationFeed :post="publication" />
     <div
+      v-if="publication.getListComment().length > 0"
       class="flex flex-col h-[20vh] overflow-y-scroll md:w-[50vw] lg:w-[40vw] xl:w-[25vw] mt-10"
     >
       <div class="flex flex-col w-full h-[90vh] gap-5">
@@ -51,6 +52,12 @@ initPublication();
           v-for="comment in publication.getListComment()"
         />
       </div>
+    </div>
+    <div
+      v-else
+      class="flex justify-center items-center h-[20vh] mt-10 text-base-content/50"
+    >
+      <p>No comments yet. Be the first to comment!</p>
     </div>
     <div
       v-if="useUserStore().isLogin"
