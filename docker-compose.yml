@@ -1,0 +1,55 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: instai-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=instaBd
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./BDD/bdd.sql:/docker-entrypoint-initdb.d/bdd.sql
+      - db-data:/var/lib/mysql
+    networks:
+      - instai-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: instai-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - FRONTEND_URL=http://localhost:8080
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=instaBd
+    env_file:
+      - ./backend/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - instai-network
+
+  frontend:
+    build: ./frontend
+    container_name: instai-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - instai-network
+
+networks:
+  instai-network:
+    driver: bridge
+
+volumes:
+  db-data:
