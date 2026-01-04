@@ -28,6 +28,3 @@
 node_modules/
 logs/
 *.log
-
-### BDD ###
-bdd/
