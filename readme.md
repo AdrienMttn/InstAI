@@ -174,8 +174,6 @@ InstAI/
 └── readme.md
 ```
 
----
-
 ## 🎨 Captures d'écran
 
 <img src="img/accueil.png">
