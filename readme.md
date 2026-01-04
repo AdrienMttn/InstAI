@@ -178,7 +178,6 @@ InstAI/
 
 <img src="img/accueil.png">
 <img src="img/profile.png">
----
 
 ## 🐛 Problèmes connus
 
