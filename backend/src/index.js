@@ -94,7 +94,7 @@ app.get(
   "/auth/github/callback",
   passport.authenticate("github", {
     session: false,
-    failureRedirect: `${process.env.FRONTEND_URL}/login`,
+    failureRedirect: `${process.env.FRONTEND_URL}/login&message=connection github failed`,
   }),
   loginGithub
 );
@@ -109,7 +109,7 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     session: false,
-    failureRedirect: "/auth/google/failure",
+    failureRedirect: `${process.env.FRONTEND_URL}/login&message=connection google failed`,
   }),
   loginGoogle
 );

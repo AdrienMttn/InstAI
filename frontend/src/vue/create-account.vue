@@ -10,15 +10,22 @@ const username: Ref<string> = defineModel("username", { required: true });
 const router = useRouter();
 const errorMessage = ref(undefined);
 
+const emit = defineEmits<{
+  (e: "showError", message: string): void;
+  (e: "showSuccess", message: string): void;
+}>();
+
 async function create() {
   const res = await userService.create(username.value);
   if (res.success) {
     await useUserStore().initUser();
+    emit("showSuccess", res.success);
     router.push({
       name: "profile",
       params: { username: useUserStore().user?.getUsername() },
     });
   } else {
+    emit("showError", res.error);
     errorMessage.value = res.error;
   }
 }

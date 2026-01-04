@@ -9,6 +9,10 @@ import { useRouter } from "vue-router";
 gsap.registerPlugin(ScrollToPlugin);
 
 const router = useRouter();
+const emit = defineEmits<{
+  (e: "showError", message: string): void;
+  (e: "showSuccess", message: string): void;
+}>();
 const prompt: Ref<string> = defineModel("prompt", { required: true });
 const promptError: Ref<boolean> = ref(false);
 const imageGen: Ref<string | undefined> = ref(undefined);
@@ -25,15 +29,19 @@ async function Generate() {
   const res = await userService.generate(prompt.value);
   if (res.image) {
     imageGen.value = `data:image/png;base64,${res.image}`;
+    gsap.to(window, {
+      duration: 1,
+      scrollTo: {
+        y: ".card",
+        offsetY: 50,
+      },
+    });
+    emit("showSuccess", "image generate");
+  } else {
+    emit("showError", res.error);
   }
+
   isLoading.value = false;
-  gsap.to(window, {
-    duration: 1,
-    scrollTo: {
-      y: ".card",
-      offsetY: 50,
-    },
-  });
 }
 
 async function postPublication() {
@@ -41,7 +49,10 @@ async function postPublication() {
   const res = await userService.postPublication();
   isLoading.value = false;
   if (res.success) {
+    emit("showSuccess", res.success);
     router.push({ name: "accueil" });
+  } else {
+    emit("showError", res.error);
   }
 }
 </script>

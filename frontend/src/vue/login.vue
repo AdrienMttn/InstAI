@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useUserStore } from "../stores/userStores";
 import { onMounted } from "vue";
 
 const router = useRouter();
+const route = useRoute();
+
+const emit = defineEmits<{
+  (e: "showError", message: string): void;
+}>();
+
+if (route.query.message) {
+  emit("showError", route.query.message as string);
+}
 
 onMounted(() => {
   if (useUserStore().isLogin) {
