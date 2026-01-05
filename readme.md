@@ -10,7 +10,7 @@
 
 _Un réseau social innovant où l'art de l'IA prend vie_ ✨
 
-[🚀 Demo](#-démonstration)
+[🚀 Demo](#-https://adrikiwi.freeboxos.fr/instai/)
 
 </div>
 
