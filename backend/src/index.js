@@ -6,10 +6,7 @@ import dotenv from "dotenv";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
-import {
-  generateImage,
-  postOnPostimg,
-} from "./controllers/image.controller.js";
+import { generateImage } from "./controllers/image.controller.js";
 import {
   loginGithub,
   loginGoogle,

@@ -1,7 +1,7 @@
 import e from "express";
 import connection from "../config/bd.js";
 import { User } from "../models/user.js";
-import { postOnPostimg } from "./image.controller.js";
+import { postOn8upload } from "./image.controller.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -118,7 +118,7 @@ export async function postPubli(req, res) {
     }
     const buffer = Buffer.from(req.session.generateImage, "base64");
     const file = new File([buffer], "1200x680.png", { type: "image/png" });
-    const imgUrl = await postOnPostimg(file);
+    const imgUrl = await postOn8upload(file);
     const [result] = await connection.execute("call AddPost(?, ?)", [
       req.session.user.id,
       imgUrl,

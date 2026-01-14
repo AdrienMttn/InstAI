@@ -13,7 +13,7 @@ export async function generateImage(req, res) {
     const imgUrl = await fetch(
       `https://gen.pollinations.ai/api/generate/image/${encodeURI(
         prompt
-      )}?model=zimage&width=1024&height=1024&quality=hd&seed=-1`,
+      )}?model=nanobanana&width=1024&height=1024&quality=hd&seed=-1`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${process.env.POLLINATION_API_KEY}` },
@@ -35,6 +35,7 @@ export async function generateImage(req, res) {
 // prompt bug : shrek qui mange plein de bonbon
 
 // poster l'image générer sur postimg.cc
+// ACTUELLEMENT DOWN
 export async function postOnPostimg(file) {
   try {
     const form = new FormData();
@@ -49,6 +50,25 @@ export async function postOnPostimg(file) {
     });
     const data = await response.json();
     return await getOgUrl(data.url);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+// poster l'image générer sur 8upload.com
+export async function postOn8upload(file) {
+  try {
+    const form = new FormData();
+    form.append("upload[]", file);
+    const response = await fetch("https://8upload.com/upload/mt/", {
+      method: "POST",
+      body: form,
+    });
+    const url =
+      "https://8upload.com" +
+      (await response.text()).replace(/\\/g, "").replace(/"/g, "");
+    return await getOgUrl(url);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
