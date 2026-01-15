@@ -34,7 +34,10 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex flex-col gap-3 mt-5">
-        <a href="/api/auth/github" class="btn bg-black text-white border-black">
+        <a
+          :href="`${import.meta.env.VITE_API_URI || '/api'}/auth/github`"
+          class="btn bg-black text-white border-black"
+        >
           <svg
             aria-label="GitHub logo"
             width="16"
@@ -50,7 +53,7 @@ onMounted(() => {
           Login with GitHub
         </a>
         <a
-          href="/api/auth/google"
+          :href="`${import.meta.env.VITE_API_URI || '/api'}/auth/google`"
           class="btn bg-white text-black border-[#e5e5e5]"
         >
           <svg
