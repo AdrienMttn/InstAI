@@ -10,7 +10,7 @@
 
 _Un réseau social innovant où l'art de l'IA prend vie_ ✨
 
-[🚀 Demo](https://adrikiwi.freeboxos.fr/instai/)
+🚀 [Demo](https://adrikiwi.freeboxos.fr/instai/)
 
 </div>
 
@@ -31,7 +31,6 @@ _Un réseau social innovant où l'art de l'IA prend vie_ ✨
     - [Services externes](#services-externes)
   - [🏗️ Architecture](#️-architecture)
   - [🎨 Captures d'écran](#-captures-décran)
-  - [](#)
   - [🐛 Problèmes connus](#-problèmes-connus)
   - [📄 License](#-license)
   - [👥 Auteurs](#-auteurs)
@@ -106,7 +105,7 @@ _Un réseau social innovant où l'art de l'IA prend vie_ ✨
 ### Services externes
 
 - **Pollination AI** : Génération d'images par IA
-- **PostImg** : Hébergement d'images
+- **8upload** : Hébergement d'images
 - **GitHub OAuth** : Authentification
 - **Google OAuth** : Authentification
 
